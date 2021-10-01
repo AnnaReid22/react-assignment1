@@ -59,11 +59,7 @@ def get_users():
       userToAdd = request.get_json()
       users['users_list'].append(userToAdd)
       resp = jsonify(success=True)
-      return resp
-   elif request.method == 'DELETE':
-      userToRemove = request.get_json()
-      users['users_list'].remove(userToRemove)
-      resp = jsonify(success=True)
+      resp.status = 201
       return resp
 
 @app.route('/users/<id>')
