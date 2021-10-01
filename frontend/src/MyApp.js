@@ -21,11 +21,31 @@ function MyApp() {
     }
  }
 
-  function removeOneCharacter (index) {
-    const updated = characters.filter((character, i) => {
-        return i !== index
-      });
-      setCharacters(updated);
+ async function makeDeleteCall(id){
+  try {
+     const response = await axios.delete('http://localhost:5000/users/' + id);
+     if(response.status === 204){
+      return response
+     }
+     else{
+       console.log("404 Error! The person you tried to delete does not exist!")
+     }
+  }
+  catch (error) {
+     console.log(error);
+     return false;
+  }
+ }
+
+  function removeOneCharacter (index, id) {
+    makeDeleteCall(id).then( result => {
+      if (result){
+        const updated = characters.filter((character, i) => {
+          return i !== index
+        });
+        setCharacters(updated);
+      }
+    });
   }
 
   useEffect(() => {
