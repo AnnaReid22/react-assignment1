@@ -9,7 +9,7 @@ function MyApp() {
     try {
        const response = await axios.post('http://localhost:5000/users', person);
        if(response.status === 201){
-        return response
+        return response.data
        }
        else{
          console.log("Unable to post the user. Try again later!")
@@ -50,7 +50,7 @@ function MyApp() {
   function updateList(person) { 
     makePostCall(person).then( result => {
     if (result)
-       setCharacters([...characters, person] );
+       setCharacters([...characters, result] );
     });
  }
 
